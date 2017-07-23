@@ -5,10 +5,9 @@ namespace NVT\BannerManagement\Block\Adminhtml\Banner\Edit\Tab;
  * @package NVT\BannerManagement\Block\Adminhtml\Banner\Edit\Tab
  * thomas check $_coreRegistry, $_formFactory
  */
-
+use NVT\BannerManagement\Model\System\Config\Status;
 class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magento\Backend\Block\Widget\Tab\TabInterface
 {
-    protected $_bannerStatus;
     protected $_formFactory;
     protected $_coreRegistry;
 
@@ -16,10 +15,8 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\FormFactory $formFactory,
-        \NVT\BannerManagement\Model\System\Config\Status $bannerStatus,
         array $data = []
     ) {
-        $this->_bannerStatus = $bannerStatus;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
@@ -64,7 +61,7 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'name'=>'short_description',
                 'label'=>__('Short Description'),
                 'maxlength' =>'255',
-                'note' => 'Limited characters is 255'
+                'note' => 'Limited characters is 64k'
             ]
         );
         $fieldset->addField(
@@ -73,13 +70,13 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             [
                 'name'=>'is_active',
                 'label'=>__('Status'),
-                'options'=>$this->_bannerStatus->optionArray(),
-                'value' => ['Enable'=> \NVT\BannerManagement\Model\System\Config\Status::STATUS_ENABLED]
+                'options'=>[ Status::STATUS_DISABLE => __('Disable'), Status::STATUS_ENABLED => __('Enable')],
+                'value' => ['Enable'=> Status::STATUS_ENABLED]
             ]
         );
         $data = $model->getData();
         if(!$id){
-            $data['is_active'] = \NVT\BannerManagement\Model\System\Config\Status::STATUS_ENABLED;
+            $data['is_active'] = Status::STATUS_ENABLED;
         }
         $form->setValues($data);
         $this->setForm($form);

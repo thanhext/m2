@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d94bbf27-d259-480e-a397-72fbf01d47eb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Ui/Component/Listing/Column/Bannermanagerbanner/PageActions.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/layout/nvt_bannermanagement_banners_banner_edit.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/layout/nvt_bannermanagement_banners_banner_new.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/layout/nvt_bannermanagement_banners_banner_save.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/ui_component/bannermanager_banner.xml.5974ccee35e9a.bak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/ui_component/nvt_bannermanagement_banners_form.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Block/Adminhtml/Banner/Edit/Tab/Info.php" afterPath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Block/Adminhtml/Banner/Edit/Tab/Info.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Delete.php" afterPath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Delete.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Edit.php" afterPath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Edit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/MassStatus.php" afterPath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/MassStatus.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Save.php" afterPath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Save.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Setup/InstallSchema.php" afterPath="$PROJECT_DIR$/app/code/NVT/BannerManagement/Setup/InstallSchema.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/etc/adminhtml/menu.xml" afterPath="$PROJECT_DIR$/app/code/NVT/BannerManagement/etc/adminhtml/menu.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/ui_component/bannermanager_banner.xml" afterPath="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/ui_component/bannermanager_banner.xml" />
     </list>
     <ignored path="m2.iws" />
@@ -31,28 +30,7 @@
     <favorites_list name="m2" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Delete.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Delete.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="76" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Edit.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Edit.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="13" column="49" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,7 +41,6 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Model/Item.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/etc/adminhtml/routes.xml" />
-        <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/etc/adminhtml/menu.xml" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/layout/bannermanager_banner_index.xml" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Index.php" />
@@ -84,12 +61,13 @@
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Ui/Component/Listing/Column/Bannermanagerbanner/PageActions.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Ui/Component/Listing/DataProviders/DataProvider.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Ui/Component/Listing/DataProviders/BannerProvider.php" />
-        <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/ui_component/bannermanager_banner.xml" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Ui/Component/Listing/Column/BannerActions.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Delete.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/MassStatus.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Save.php" />
         <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/Controller/Adminhtml/Banner/Edit.php" />
+        <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/etc/adminhtml/menu.xml" />
+        <option value="$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/ui_component/bannermanager_banner.xml" />
       </list>
     </option>
   </component>
@@ -321,7 +299,15 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Ui" />
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="adminhtml" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui_component" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -351,37 +337,15 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="m2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="m2" />
+              <option name="myItemId" value="view" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
+              <option name="myItemId" value="adminhtml" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NVT" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BannerManagement" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -472,12 +436,12 @@
       <workItem from="1500861295393" duration="3897000" />
       <workItem from="1500909601144" duration="1780000" />
       <workItem from="1500948584040" duration="1806000" />
-      <workItem from="1500998357498" duration="91000" />
+      <workItem from="1500998357498" duration="723000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27107000" />
+    <option name="totallyTimeSpent" value="27739000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="47" y="24" width="1319" height="744" extended-state="6" />
@@ -516,6 +480,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1026">
           <caret line="57" column="66" selection-start-line="57" selection-start-column="57" selection-end-line="57" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -635,13 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/layout/bannermanager_banner_index.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="54" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/Model/ResourceModel/Banner/Collection.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -660,13 +618,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="36" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/etc/adminhtml/menu.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -762,13 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/ui_component/bannermanager_banner.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="18" column="68" selection-start-line="18" selection-start-column="68" selection-end-line="18" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/Ui/Component/Listing/Column/Bannermanagerbanner/PageActions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -837,6 +781,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="13" column="49" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/etc/adminhtml/menu.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+          <folding>
+            <marker date="1500998784929" expanded="true" signature="83:903" ph="..." />
+            <marker date="1500998784929" expanded="true" signature="182:893" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/ui_component/bannermanager_banner.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="69" column="62" selection-start-line="69" selection-start-column="62" selection-end-line="69" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/code/NVT/BannerManagement/view/adminhtml/layout/bannermanager_banner_index.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="54" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
           <folding />
         </state>
       </provider>

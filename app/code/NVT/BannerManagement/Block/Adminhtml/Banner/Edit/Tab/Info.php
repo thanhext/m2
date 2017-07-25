@@ -50,8 +50,7 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
               'label'=>__('Title'),
               'required' => true,
               'class' => 'required-entry',
-              'maxlength' =>'255',
-              'note' => 'Limited characters is 255'
+              'maxlength' =>'255'
           ]
         );
         $fieldset->addField(
@@ -61,7 +60,7 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'name'=>'short_description',
                 'label'=>__('Short Description'),
                 'maxlength' =>'255',
-                'note' => 'Limited characters is 64k'
+                'note' => 'Limited characters is 255'
             ]
         );
         $fieldset->addField(

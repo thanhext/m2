@@ -9,9 +9,9 @@ class Edit extends \NVT\BannerManagement\Controller\Adminhtml\Banner
 
     public function execute()
     {
-        $id = $this->getRequest()->getParam('id');
+        $identities = \NVT\BannerManagement\Model\Banner::CACHE_TAG . '_id';
+        $id = $this->getRequest()->getParam($identities);
         $model = $this->_bannerFactory->create();
-
         if ($id) {
             $model->load($id);
             if (!$model->getBannerId()) {

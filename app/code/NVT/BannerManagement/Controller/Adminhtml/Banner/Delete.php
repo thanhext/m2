@@ -9,11 +9,11 @@ class Delete extends \NVT\BannerManagement\Controller\Adminhtml\Banner
 {
     public function execute()
     {
-       $id=$this->getRequest()->getParam('id');
+        $identities = \NVT\BannerManagement\Model\Banner::CACHE_TAG . '_id';
+        $id = $this->getRequest()->getParam($identities);
         if($id) {
             $model = $this->_bannerFactory->create();
             $model->load($id);
-
             if (!$model->getBannerId()) {
                 $this->messageManager->addError(__('Banner is no longer exist'));
             } else {
@@ -23,7 +23,7 @@ class Delete extends \NVT\BannerManagement\Controller\Adminhtml\Banner
                     $this->_redirect('*/*/');
                 } catch (\Exception $e) {
                     $this->messageManager->addError($e->getMessage());
-                    $this->_redirect('*/*/edit', ['id' => $model->getId()]);
+                    $this->_redirect('*/*/edit', [$identities => $model->getId()]);
                 }
             }
         }

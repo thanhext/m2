@@ -10,13 +10,14 @@ class MassStatus extends \NVT\BannerManagement\Controller\Adminhtml\Banner
 
     public function execute()
     {
-        $ids    = $this->getRequest()->getParam('selected');
-        $status         = $this->getRequest()->getParam('status');
+        $ids        = $this->getRequest()->getParam('selected');
+        $identities = \NVT\BannerManagement\Model\Banner::CACHE_TAG . '_id';
+        $status     = $this->getRequest()->getParam('status');
         if(is_array($ids)) {
             foreach ($ids as $id) {
                 try {
                     $model = $this->_bannerFactory->create();
-                    $model->setData(array('banner_id' => $id, 'is_active' => $status));
+                    $model->setData(array($identities => $id, 'is_active' => $status));
                     $model->save();
                 } catch (\Exception $e) {
                     $this->messageManager->addError($e->getMessage());

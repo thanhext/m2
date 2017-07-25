@@ -26,6 +26,12 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             [ 'nullable' => false, ],
             'Title'
         )->addColumn(
+            'short_description',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            [ 'nullable' => false, ],
+            'Short Description'
+        )->addColumn(
             'properties',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             '64k',

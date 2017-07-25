@@ -8,11 +8,13 @@ class Save extends \NVT\BannerManagement\Controller\Adminhtml\Banner
 {
     public function execute()
     {
-        $isPost = $this->getRequest()->getPost();
-        $data = $this->getRequest()->getParam('banner');
+        $data       = $this->getRequest()->getParam('banner');
+        $isPost     = $this->getRequest()->getPost();
+        $identities = \NVT\BannerManagement\Model\Banner::CACHE_TAG . '_id';
         if ($isPost) {
             $model = $this->_bannerFactory->create();
             $model->setData($data);
+            $id = $model->getData($identities);
             try {
                 // Save news
                 $model->save();
@@ -20,7 +22,7 @@ class Save extends \NVT\BannerManagement\Controller\Adminhtml\Banner
                 $this->messageManager->addSuccess(__('The Banner has been saved.'));
                 // Check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', ['id' => $model->getBannerId(), '_current' => true]);
+                    $this->_redirect('*/*/edit', [$identities => $id, '_current' => true]);
                     return;
                 }
                 // Go to grid page
@@ -30,7 +32,7 @@ class Save extends \NVT\BannerManagement\Controller\Adminhtml\Banner
                 $this->messageManager->addError($e->getMessage());
             }
             $this->_getSession()->setFormData($data);
-            $this->_redirect('*/*/index', ['id' => $model->getBannerId()]);
+            $this->_redirect('*/*/index', [$identities => $id]);
         }
     }
 

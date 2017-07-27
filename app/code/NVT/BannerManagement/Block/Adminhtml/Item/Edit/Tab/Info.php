@@ -8,15 +8,33 @@ namespace NVT\BannerManagement\Block\Adminhtml\Item\Edit\Tab;
 use NVT\BannerManagement\Model\System\Config\Status;
 class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magento\Backend\Block\Widget\Tab\TabInterface
 {
+    /**
+     * @var \Magento\Framework\Data\FormFactory
+     */
     protected $_formFactory;
+    /**
+     * @var \Magento\Framework\Registry
+     */
     protected $_coreRegistry;
+    /**
+     * @var \Magento\Store\Model\System\Store
+     */
+    protected $_systemStore;
+    /**
+     * @var \NVT\BannerManagement\Model\System\Config\ItemBanner
+     */
+    protected $_itemBanner;
 
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\FormFactory $formFactory,
+        \Magento\Store\Model\System\Store $systemStore,
+        \NVT\BannerManagement\Model\System\Config\ItemBanner $itemBanner,
         array $data = []
     ) {
+        $this->_itemBanner = $itemBanner;
+        $this->_systemStore = $systemStore;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
@@ -63,6 +81,48 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'note' => 'Limited characters is 255'
             ]
         );
+        $fieldset->addField(
+            'banner_ids',
+            'multiselect',
+            [
+                'name'=>'banner_ids',
+                'label'=>__('Banner'),
+                'required' => true,
+                'size' => 4,
+                'values' => $this->_itemBanner->getAllOptions()
+            ]
+        );
+        /**
+         * Check is single store mode
+         */
+        if (!$this->_storeManager->isSingleStoreMode()) {
+            $field = $fieldset->addField(
+                'store_id',
+                'multiselect',
+                [
+                    'name' => 'store_id',
+                    'label' => __('Store View'),
+                    'title' => __('Store View'),
+                    'required' => true,
+                    'value' => 0,
+                    'values' => $this->_systemStore->getStoreValuesForForm(false, true),
+                    'disabled' => false
+                ]
+            );
+            $renderer = $this->getLayout()->createBlock(
+                'Magento\Backend\Block\Store\Switcher\Form\Renderer\Fieldset\Element'
+            );
+            $field->setRenderer($renderer);
+        } else {
+            $fieldset->addField(
+                'store_id',
+                'hidden',
+                ['name' => 'store_id', 'value' => $this->_storeManager->getStore(true)->getId()]
+            );
+            $model->setStoreId($this->_storeManager->getStore(true)->getId());
+        }
+
+
         $fieldset->addField(
             'is_active',
             'select',

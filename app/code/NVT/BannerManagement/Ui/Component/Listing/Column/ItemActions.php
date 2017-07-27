@@ -1,10 +1,10 @@
 <?php
 namespace NVT\BannerManagement\Ui\Component\Listing\Column;
 
-class BannerActions extends \Magento\Ui\Component\Listing\Columns\Column {
+class ItemActions extends \Magento\Ui\Component\Listing\Columns\Column {
 
-    const URL_PATH_EDIT = 'bannermanager/banner/edit';
-    const URL_PATH_DELETE = 'bannermanager/banner/delete';
+    const URL_PATH_EDIT = 'bannermanager/item/edit';
+    const URL_PATH_DELETE = 'bannermanager/item/delete';
     protected $urlBuilder;
     private $editUrl;
 
@@ -24,7 +24,7 @@ class BannerActions extends \Magento\Ui\Component\Listing\Columns\Column {
 
     public function prepareDataSource(array $dataSource)
     {
-        $identities = \NVT\BannerManagement\Model\Banner::CACHE_TAG . '_id';
+        $identities = \NVT\BannerManagement\Model\Item::CACHE_TAG . '_id';
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 $name   = $this->getData('name');

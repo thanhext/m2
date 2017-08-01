@@ -38,7 +38,7 @@ class Save extends \Magento\Backend\App\Action
         $identities = $cacheTag . '_id';
         if ($isPost) {
             $model = $this->_itemFactory->create();
-            $model->setData($data);
+//            $model->setData($data);
             /*
             * Save image upload
             */

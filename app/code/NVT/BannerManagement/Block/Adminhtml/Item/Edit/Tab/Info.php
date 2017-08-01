@@ -82,45 +82,46 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             ]
         );
         $fieldset->addField(
-            'banner_ids',
+            'banner_id',
             'multiselect',
             [
-                'name'=>'banner_ids',
+                'name'=>'banner_id',
                 'label'=>__('Banner'),
                 'required' => true,
                 'size' => 4,
+                'value' => [2],
                 'values' => $this->_itemBanner->getAllOptions()
             ]
         );
-        /**
-         * Check is single store mode
-         */
-        if (!$this->_storeManager->isSingleStoreMode()) {
-            $field = $fieldset->addField(
-                'store_id',
-                'multiselect',
-                [
-                    'name' => 'store_id',
-                    'label' => __('Store View'),
-                    'title' => __('Store View'),
-                    'required' => true,
-                    'value' => 0,
-                    'values' => $this->_systemStore->getStoreValuesForForm(false, true),
-                    'disabled' => false
-                ]
-            );
-            $renderer = $this->getLayout()->createBlock(
-                'Magento\Backend\Block\Store\Switcher\Form\Renderer\Fieldset\Element'
-            );
-            $field->setRenderer($renderer);
-        } else {
-            $fieldset->addField(
-                'store_id',
-                'hidden',
-                ['name' => 'store_id', 'value' => $this->_storeManager->getStore(true)->getId()]
-            );
-            $model->setStoreId($this->_storeManager->getStore(true)->getId());
-        }
+//        /**
+//         * Check is single store mode
+//         */
+//        if (!$this->_storeManager->isSingleStoreMode()) {
+//            $field = $fieldset->addField(
+//                'store_id',
+//                'multiselect',
+//                [
+//                    'name' => 'store_id',
+//                    'label' => __('Store View'),
+//                    'title' => __('Store View'),
+//                    'required' => true,
+//                    'value' => 0,
+//                    'values' => $this->_systemStore->getStoreValuesForForm(false, true),
+//                    'disabled' => false
+//                ]
+//            );
+//            $renderer = $this->getLayout()->createBlock(
+//                'Magento\Backend\Block\Store\Switcher\Form\Renderer\Fieldset\Element'
+//            );
+//            $field->setRenderer($renderer);
+//        } else {
+//            $fieldset->addField(
+//                'store_id',
+//                'hidden',
+//                ['name' => 'store_id', 'value' => $this->_storeManager->getStore(true)->getId()]
+//            );
+//            $model->setStoreId($this->_storeManager->getStore(true)->getId());
+//        }
 
 
         $fieldset->addField(
@@ -137,6 +138,7 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
         if(!$id){
             $data['is_active'] = Status::STATUS_ENABLED;
         }
+//        var_dump($data); die;
         $form->setValues($data);
         $this->setForm($form);
         return parent::_prepareForm();

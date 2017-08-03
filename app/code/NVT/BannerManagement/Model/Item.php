@@ -55,16 +55,18 @@ class Item extends \Magento\Framework\Model\AbstractModel implements \NVT\Banner
                 }
                 foreach ($bannerIds as $bannerId) {
                     if(!in_array($bannerId, $oldData)){
+                        $data = $this->getData();
                         $model = $this->itemBannerFactory->create();
-                        $model->setItemId($itemId);
+                        $model->setData($data);
                         $model->setBannerId($bannerId);
                         $model->save();
                     }
                 }
             } else {
                 foreach ($bannerIds as $bannerId) {
+                    $data = $this->getData();
                     $model = $this->itemBannerFactory->create();
-                    $model->setItemId($itemId);
+                    $model->setData($data);
                     $model->setBannerId($bannerId);
                     $model->save();
                 }

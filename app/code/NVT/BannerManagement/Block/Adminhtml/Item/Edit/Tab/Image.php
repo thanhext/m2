@@ -45,8 +45,7 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
                 'title' => __('Image'),
                 'class' => 'required-entry',
                 'required' => true,
-                'note'      => '(*.jpg, *.png, *.gif)',
-                'before_element_html' => $this->getImageHtml('image', $model->getData('image'))
+                'note'      => '(*.jpg, *.png, *.gif)'
             ]
         );
         $fieldset->addField(
@@ -68,7 +67,8 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
                 'label' => __('Style'),
                 'title' => __('Style'),
                 'required' => false,
-                'class' => 'required-url'
+                'class' => 'style-url',
+                'before_element_html' => $this->getImageHtml('image', $model)
             ]
         );
         $fieldset->addField(
@@ -91,23 +91,37 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
         return parent::_prepareForm();
     }
 
-    protected function getImageHtml($field, $image)
+    protected function getImageHtml($field, $model)
     {
         $js     = '';
         $html   = '';
+        $image  = $model->getData($field);
+        $style  = $model->getStyle();
         if ($image) {
             $urlBase = $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA, false);
-            $html .= '<div id="image-wrapper">';
+            $html .= '<div id="image-wrapper" class="image-wrapper">';
             $html .= '<image style="width:100%;" src="'. $urlBase . $image .'" />';
             $html .= '<input type="hidden" value="' . $image . '" name="old_' . $field . '"/>';
-            $html .= '<div id="draggable2" style="display: inline-block;border: 1px solid red; position: absolute;" class="ui-widget-content"><p>You can drag me around&hellip;</p><p class="ui-widget-header">&hellip;but you can\'t drag me by this handle.</p></div>';
+            $html .= '<div class="ui-widget-content desciption-image" style="'. $style .'" ></div>';
             $html .= '</div>';
 
 
 
             $js .= '<script>require(["jquery", "jquery/ui", "domReady!"], function($){';
 
-            $js .= '$( "#draggable2" ).draggable({ containment: "#image-wrapper", scroll: false, stop: function() {
+
+
+
+            $js .= '$("body").on("change", "#item_description", function(){';
+            $js .= '    var description = "<div id=\"desciption-image\" class=\"desciption-image\">"+ $(this).val() + "</div>";';
+            $js .= '    if($(".desciption-image").length){';
+            $js .= '        $(".desciption-image").html($(this).val());';
+            $js .= '    } else {';
+            $js .= '        $("#image-wrapper").append(description);';
+            $js .= '    }';
+            $js .= '});';
+
+            $js .= '$(".desciption-image").draggable({ containment: "#image-wrapper", scroll: false, stop: function() {
                             var wPosition = $("#image-wrapper").position();
                             var height = $("#image-wrapper").height() - wPosition.top - parseFloat($(this).css("borderTopWidth")) - parseFloat($(this).css("borderBottomWidth"));
                             var width = $("#image-wrapper").width() - wPosition.left  - parseFloat($(this).css("borderLeftWidth")) - parseFloat($(this).css("borderRightWidth"));
@@ -115,36 +129,8 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
                             var jsStyle = JSON.stringify(position);
                             var top = (position.top * 100)/height;
                             var left = (position.left * 100)/width
-                            console.log(position.left);
-                            console.log(width);
-                            
-                            $("#item_style").val("{top: "+ top.toFixed(3) +"%;left: "+ left.toFixed(3) +"%}")} 
+                            $("#item_style").val("top: "+ top.toFixed(3) +"%;left: "+ left.toFixed(3) +"%")} 
                         });';
-
-
-            $js .= 'JSON.stringify = JSON.stringify || function (obj) {';
-            $js .= '    var t = typeof (obj);';
-            $js .= '    if (t != "object" || obj === null) {';
-            $js .= '        if (t == "string") obj = \'"\'+obj+\'"\';';
-            $js .= '        return String(obj);';
-            $js .= '    }';
-            $js .= '    else {';
-            $js .= '        var n, v, json = [], arr = (obj && obj.constructor == Array);';
-            $js .= '    for (n in obj) {';
-            $js .= '        v = obj[n]; t = typeof(v);';
-            $js .= '        if (t == "string") v = \'"\'+v+\'"\';';
-            $js .= '        else if (t == "object" && v !== null) v = JSON.stringify(v);';
-            $js .= '            json.push((arr ? "" : \'"\' + n + \'":\') + String(v));';
-            $js .= '        }';
-            $js .= '        return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");';
-            $js .= '    }';
-            $js .= '};';
-
-
-            $js .= 'var tmp = {one: 1, two: "2"};';
-            $js .= 'var ex = JSON.stringify(tmp);';
-
-            $js .= 'alert(ex.replace(/\,/g, \';\'));';
 
             $js .= '});</script>';
             $html .= $js;

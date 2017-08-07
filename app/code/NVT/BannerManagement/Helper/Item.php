@@ -4,13 +4,15 @@ namespace NVT\BannerManagement\Helper;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\Helper\AbstractHelper;
 
-class Image extends AbstractHelper
+class Item extends AbstractHelper
 {
     const BANNER_PATH_CONFIG = 'banner';
 
     protected $_item;
-    protected $_model;
+    protected $_html;
+    protected $_class;
     protected $_itemFactory;
+    protected $_storeManager;
     protected $_imageFile;
     protected $_assetRepo;
     protected $_isfrontend = true;
@@ -25,10 +27,12 @@ class Image extends AbstractHelper
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \NVT\BannerManagement\Model\ItemFactory $itemFactory,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\View\Asset\Repository $assetRepo,
         \Magento\Framework\View\ConfigInterface $viewConfig
     ) {
         $this->_itemFactory = $itemFactory;
+        $this->_storeManager = $storeManager;
         parent::__construct($context);
         $this->_assetRepo = $assetRepo;
         $this->viewConfig = $viewConfig;
@@ -41,31 +45,54 @@ class Image extends AbstractHelper
      */
     protected function _reset()
     {
-        $this->_model = null;
+        $this->_html = null;
         $this->_item = null;
         $this->_imageFile = null;
-        $this->attributes = [];
+        $this->_class = null;
         return $this;
     }
 
     /**
-     * Initialize Helper to work with Image
+     * Initialize Helper to work with Item
      *
      * @param \NVT\BannerManagement\Model\Item $item
-     * @param string $imageId
-     * @param array $attributes
      * @return $this
      */
-    public function init($item, $imageId, $attributes = [])
+    public function init($item, $class = null)
     {
         $this->_reset();
-
         $this->setItem($item);
+        $this->setClass($class);
         $this->setImageProperties();
-
         return $this;
     }
 
+    /**
+     * Set current Item
+     *
+     * @param \NVT\BannerManagement\Model\Item $item
+     * @return $this
+     */
+    protected function setItem($item)
+    {
+        $this->_item = $item;
+        return $this;
+    }
+    protected function setClass($class)
+    {
+        if(is_array($class)){
+            $rclass = implode(' ', $class);
+        }
+        else {
+            $rclass = $class;
+        }
+        $rclass .= ' item-wrapper item-'. $this->_item->getId();
+        $this->_class = trim($rclass);
+    }
+    public function getClass()
+    {
+        return $this->_class;
+    }
     /**
      * Set image properties
      *
@@ -73,31 +100,25 @@ class Image extends AbstractHelper
      */
     protected function setImageProperties()
     {
-        $html  = '<div style="' . $this->_item->getStyle() .'" >';
-        $html .= '<img src="'. $this->getImageSrc()
-                            . '" alt="'. $this->getLabel()
-                            . '" width="'. $this->getWidth()
-                            . '" height="'. $this->getHeight() .'" />';
+        $html  = '<div class="'. $this->getClass() .'" style="position: relative;z-index: 1;" >';
+        $html .= '  <img src="'. $this->getImageSrc() .'" alt="'. $this->getAlt() .'" />';
+        $html .= '  <div class="caption" style="position: absolute;z-index: 2;' . $this->_item->getStyle() .'">'. $this->getLabel() .'</div>';
         $html .= '</div>';
+        $this->_html = $html;
         return $this;
     }
-    protected function getWidth()
+    public function toHtml()
     {
-        return null;
-    }
-    protected function getHeight()
-    {
-        return null;
+        return $this->_html;
     }
     /**
-     *
+     * @return string
      */
-    protected function getImageSrc()
+    public function getImageSrc()
     {
-        $image      = $this->_item->getImage();
-        $urlBase    = $this->_storeManager->getStore()
-                        ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA, false);
-        return $urlBase . $image;
+        return $this->_storeManager->getStore()
+                ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA, false)
+                . $this->_item->getImage();
     }
 
     /**
@@ -113,17 +134,6 @@ class Image extends AbstractHelper
         return $this->_model;
     }
 
-    /**
-     * Set current Item
-     *
-     * @param \NVT\BannerManagement\Model\Item $item
-     * @return $this
-     */
-    protected function setItem($item)
-    {
-        $this->_item = $item;
-        return $this;
-    }
 
     /**
      * Get current Item
@@ -163,10 +173,10 @@ class Image extends AbstractHelper
      */
     public function getLabel()
     {
-        $label = $this->_item->getLable();
-        if (empty($label)) {
-            $label = $this->_item->getTitle();
-        }
-        return $label;
+        return $this->_item->getDescription();
+    }
+    public function getAlt()
+    {
+        return $this->_item->getTitle();
     }
 }

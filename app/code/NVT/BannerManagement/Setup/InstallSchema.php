@@ -113,6 +113,18 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             [ 'nullable' => false, ],
             'Click'
         )->addColumn(
+            'start_time',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+            null,
+            [ 'nullable' => false ],
+            'Start Time'
+        )->addColumn(
+            'end_time',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+            null,
+            [ 'nullable' => false ],
+            'End Time'
+        )->addColumn(
             'creation_time',
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
             null,

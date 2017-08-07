@@ -1,7 +1,7 @@
 var config = {
     map: {
         '*': {
-            // compareItems:           'Magento_Catalog/js/compare'
+            'swipermin':               'Netwise_Swiper/js/swiper/swiper.min'
         }
     }
 };

@@ -10,6 +10,7 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
 {
     protected $_formFactory;
     protected $_coreRegistry;
+    protected $_itemHelper;
     protected $_wysiwygConfig;
 
     public function __construct(
@@ -17,8 +18,10 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig,
+        \NVT\BannerManagement\Helper\Item $itemHelper,
         array $data = []
     ) {
+        $this->_itemHelper = $itemHelper;
         $this->_wysiwygConfig = $wysiwygConfig;
         parent::__construct($context, $registry, $formFactory, $data);
     }
@@ -37,6 +40,18 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
             ['legend'=>__('General')]
         );
         $fieldset->addField(
+            'style',
+            'hidden',
+            [
+                'name' => 'style',
+                'label' => __('Style'),
+                'title' => __('Style'),
+                'required' => false,
+                'class' => 'style-url',
+                'before_element_html' => $this->getImageHtml('image', $model)
+            ]
+        );
+        $fieldset->addField(
             'image',
             'image',
             [
@@ -46,29 +61,6 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
                 'class' => 'required-entry',
                 'required' => true,
                 'note'      => '(*.jpg, *.png, *.gif)'
-            ]
-        );
-        $fieldset->addField(
-            'link',
-            'text',
-            [
-                'name' => 'link',
-                'label' => __('Link'),
-                'title' => __('Link'),
-                'required' => false,
-                'class' => 'required-url'
-            ]
-        );
-        $fieldset->addField(
-            'style',
-            'text',
-            [
-                'name' => 'style',
-                'label' => __('Style'),
-                'title' => __('Style'),
-                'required' => false,
-                'class' => 'style-url',
-                'before_element_html' => $this->getImageHtml('image', $model)
             ]
         );
         $fieldset->addField(
@@ -84,7 +76,17 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
                 'config' => $this->_wysiwygConfig->getConfig()
             ]
         );
-
+        $fieldset->addField(
+            'link',
+            'text',
+            [
+                'name' => 'link',
+                'label' => __('Link'),
+                'title' => __('Link'),
+                'required' => false,
+                'class' => 'required-url'
+            ]
+        );
         $data = $model->getData();
         $form->setValues($data);
         $this->setForm($form);
@@ -98,38 +100,23 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
         $image  = $model->getData($field);
         $style  = $model->getStyle();
         if ($image) {
-            $urlBase = $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA, false);
-            $html .= '<div id="image-wrapper" class="image-wrapper">';
-            $html .= '<image style="width:100%;" src="'. $urlBase . $image .'" />';
-            $html .= '<input type="hidden" value="' . $image . '" name="old_' . $field . '"/>';
-            $html .= '<div class="ui-widget-content desciption-image" style="'. $style .'" ></div>';
-            $html .= '</div>';
-
-
-
+            $html .= $this->_itemHelper->init($model)->toHtml();
             $js .= '<script>require(["jquery", "jquery/ui", "domReady!"], function($){';
 
-
-
-
             $js .= '$("body").on("change", "#item_description", function(){';
-            $js .= '    var description = "<div id=\"desciption-image\" class=\"desciption-image\">"+ $(this).val() + "</div>";';
-            $js .= '    if($(".desciption-image").length){';
-            $js .= '        $(".desciption-image").html($(this).val());';
-            $js .= '    } else {';
-            $js .= '        $("#image-wrapper").append(description);';
-            $js .= '    }';
+            $js .= '    $(".item-wrapper .caption").html($(this).val());';
             $js .= '});';
 
-            $js .= '$(".desciption-image").draggable({ containment: "#image-wrapper", scroll: false, stop: function() {
-                            var wPosition = $("#image-wrapper").position();
-                            var height = $("#image-wrapper").height() - wPosition.top - parseFloat($(this).css("borderTopWidth")) - parseFloat($(this).css("borderBottomWidth"));
-                            var width = $("#image-wrapper").width() - wPosition.left  - parseFloat($(this).css("borderLeftWidth")) - parseFloat($(this).css("borderRightWidth"));
+            $js .= '$(".item-wrapper .caption").draggable({ containment: ".item-wrapper", scroll: false, stop: function() {
+                            var element = $(".item-wrapper");
+                            var wPosition = element.position();
+                            var height = element.height() - wPosition.top - parseFloat($(this).css("borderTopWidth")) - parseFloat($(this).css("borderBottomWidth"));
+                            var width = element.width() - wPosition.left  - parseFloat($(this).css("borderLeftWidth")) - parseFloat($(this).css("borderRightWidth"));
                             var position = $(this).position();
-                            var jsStyle = JSON.stringify(position);
                             var top = (position.top * 100)/height;
-                            var left = (position.left * 100)/width
-                            $("#item_style").val("top: "+ top.toFixed(3) +"%;left: "+ left.toFixed(3) +"%")} 
+                            var left = (position.left * 100)/width;
+                            $("#item_style").val("top: "+ top.toFixed(3) +"%;left: "+ left.toFixed(3) +"%;");
+                          } 
                         });';
 
             $js .= '});</script>';

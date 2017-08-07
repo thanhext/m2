@@ -22,14 +22,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         $connection =$this->getResource()->getConnection();
         foreach ($this->_items as $item) {
             try {
-//                $slect = $connection->select()->from(
-//                    ['b' => $connection->getTableName('bannermanagement_banner')],
-//                    ['*']
-//                )->join(
-//                    ['m' => $connection->getTableName('bannermanagement_banner_item')],
-//                    'm.banner_id = b.banner_id',
-//                    []
-//                )->where('b.banner_id=?', $item->getId());
                 $slect = $connection->select()->from(
                     ['b' => $connection->getTableName('bannermanagement_banner_item')],
                     ['banner_id']
@@ -47,6 +39,32 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         if ($this->_eventPrefix && $this->_eventObject) {
             $this->_eventManager->dispatch($this->_eventPrefix . '_load_after', [$this->_eventObject => $this]);
         }
+        return $this;
+    }
+
+    public function addBannerFilter(\NVT\BannerManagement\Model\Banner $banner)
+    {
+        $this->_itemLimitationFilters['banner_id'] = $banner->getId();
+        $this->_applyItemLimitations();
+        return $this;
+    }
+
+    protected function _applyItemLimitations()
+    {
+        $filters = $this->_itemLimitationFilters;
+        if (!isset($filters['banner_id'])) {
+            return $this;
+        }
+        $conditions = [
+            'ib.item_id=main_table.item_id',
+            $this->getConnection()->quoteInto('ib.banner_id=?', $filters['banner_id']),
+        ];
+        $joinCond = join(' AND ', $conditions);
+        $this->getSelect()->join(
+                ['ib'=>$this->getTable('bannermanagement_banner_item')],
+                $joinCond,
+                ['ib'=>'banner_id']
+            );
         return $this;
     }
 

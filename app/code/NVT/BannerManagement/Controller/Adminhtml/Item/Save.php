@@ -44,7 +44,7 @@ class Save extends \Magento\Backend\App\Action
             */
             if (isset($_FILES['image']) && isset($_FILES['image']['name']) && strlen($_FILES['image']['name'])) {
                 try {
-                    $basePath = \NVT\BannerManagement\Helper\Image::BANNER_PATH_CONFIG;
+                    $basePath = \NVT\BannerManagement\Helper\Item::BANNER_PATH_CONFIG;
                     $uploader = $this->_uploaderFactory->create(['fileId' => 'image']);
                     $uploader->setAllowedExtensions(['jpg','png','gif']);
                     $uploader->setAllowRenameFiles(true);

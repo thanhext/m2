@@ -25,7 +25,15 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
                 'active' => true
             ]
         );
-
+        $this->addTab(
+            'banner_properties',
+            [
+                'label' => __('Properties'),
+                'title' => __('Properties'),
+                'content' => $this->getLayout()->createBlock('NVT\BannerManagement\Block\Adminhtml\Banner\Edit\Tab\Properties')->toHtml(),
+                'active' => true
+            ]
+        );
         return parent::_beforeToHtml();
     }
 }

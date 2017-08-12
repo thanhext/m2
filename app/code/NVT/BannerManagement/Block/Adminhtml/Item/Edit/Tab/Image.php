@@ -100,7 +100,7 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
         $image  = $model->getData($field);
         $style  = $model->getStyle();
         if ($image) {
-            $html .= $this->_itemHelper->init($model)->toHtml();
+            $html .= $this->_itemHelper->_init($model)->toHtml();
             $js .= '<script>require(["jquery", "jquery/ui", "domReady!"], function($){';
 
             $js .= '$("body").on("change", "#item_description", function(){';
@@ -122,7 +122,7 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
             $js .= '});</script>';
             $html .= $js;
         }
-        return $html;
+        return $this->_itemHelper->_init($model)->toHtml();
     }
 
 

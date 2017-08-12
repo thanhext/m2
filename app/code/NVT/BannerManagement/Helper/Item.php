@@ -111,6 +111,125 @@ class Item extends AbstractHelper
     {
         return $this->_html;
     }
+
+    public function _init($item)
+    {
+        $this->_reset();
+        $this->setItem($item);
+        $this->wrapperItem();
+        return $this;
+    }
+    public function wrapperItem()
+    {
+        $labels = [['text'=>'add test text', 'style'=>null], ['text'=>'add text js', 'style'=>null]];
+        $labels = [];
+        $html  = '<div class="__wrapper" style="position: relative;z-index: 1;" >';
+        $html .= '    <div data-role="header" ><div data-role="toolbar"><span class="__icon-add" data-role="add"></span><span class="__icon-edit" data-role="edit"></span><span class="__icon-remove" data-role="remove"></span></div></div>';
+        $html .= '    <div data-role="content" >';
+        if(count($labels)){
+            foreach ($labels as $label){
+                $html .= $this->addWidget($label);
+            }
+        }
+        $html .= '    </div>';
+        if($this->_item->getId()){
+            $html .= '  <img src="'. $this->getImageSrc() .'" alt="'. $this->getAlt() .'" />';
+        }
+        $html .= '</div>';
+        $html .= '<script>require(["jquery", "jquery/ui", "domReady!"], function($){';
+        // add widget
+        $html .= '$("body").on("click", ".__wrapper > [data-role=\"header\"] [data-role=\"toolbar\"] [data-role=\"add\"]", function(){';
+        $html .= '    var elementContent = $(this).parent().parent().next("[data-role=\"content\"]");';
+        $html .= '    var item = \''. $this->addWidget() . '\';';
+        $html .= '    elementContent.append(item);';
+        // draggable widget
+        $html .= '    if($(".__wrapper").find("[data-role=\"widget\"]").length){';
+        $html .= '      $(".__wrapper").find("[data-role=\"widget\"]").draggable({ containment: ".__wrapper", cancel: "[data-role=\"body\"]", scroll: false, stop: function() {
+                            var element = $(".__wrapper");
+                            var wPosition = element.position();
+                            var height = element.height() - wPosition.top - parseFloat($(this).css("borderTopWidth")) - parseFloat($(this).css("borderBottomWidth"));
+                            var width = element.width() - wPosition.left  - parseFloat($(this).css("borderLeftWidth")) - parseFloat($(this).css("borderRightWidth"));
+                            var position = $(this).position();
+                            var top = (position.top * 100)/height;
+                            var left = (position.left * 100)/width;
+                            var style = "top: "+ top.toFixed(3) +"%;left: "+ left.toFixed(3) +"%;";
+                            var text = $(this).find("[data-role=\"body\"]").html();
+                            var data = "{\"text\": \""+ text +"\", \"style\": \""+ style +"\"}"; 
+                            $(this).find("input").val(data);
+                            selectionUpdate($(this).index());
+                          } 
+                        });';
+        $html .= '    }';
+        $html .= '});';
+
+        // remove widget
+        $html .= '$("body").on("click", "[data-role=\"widget\"] [data-role=\"remove\"]", function(){
+                     var elementWidget = $(this).parent().parent().parent("[data-role=\"widget\"]");
+                     if(confirm("Are you sure you want to delete item!")){
+                        elementWidget.remove();
+                     }
+                 });';
+        // remove widget by selector
+        $html .= '$("body").on("click", ".__wrapper > [data-role=\"header\"] [data-role=\"toolbar\"] [data-role=\"remove\"]", function(){
+                    var selector = $(this).attr("data-selector");
+                    if (typeof selector === "undefined") {
+                        alert("please pick an item.");
+                    }
+                    else{
+                        if(confirm("Are you sure you want to delete item!")){
+                            $(".__wrapper "+ selector).remove();
+                        }
+                    }
+                 });';
+
+
+
+        // click change selector
+        $html .= '$("body").on("click", ".__wrapper [data-role=\"widget\"]", function(){
+                    selectionUpdate($(this).index());
+                 });';
+
+        // function add sellection
+        $html .= 'function selectionUpdate(idx){
+                  var selector = "[data-role=\"widget\"]:eq("+ idx +")" 
+                  var element = $(".__wrapper > [data-role=\"header\"] [data-role=\"toolbar\"]");
+                  var eEdit = element.find("[data-role=\"edit\"]");
+                  var eRemove = element.find("[data-role=\"remove\"]");
+                      eEdit.attr("data-selector", selector);
+                      eRemove.attr("data-selector", selector);
+                 }';
+        $html .= '});</script>';
+
+        $this->_html = $html;
+    }
+
+    public function addWidget($data = '')
+    {
+        $html  = '';
+        if($data){
+            $label = json_decode($data);
+        }
+        else{
+            $label = new \stdClass;
+            $label->text = __('Click here to change the content.');
+            $label->style = null;
+        }
+        $html .= '    <div data-role="widget" style="'. $label->style .'">';
+        $html .= '        <div data-role="header" ><input type="hidden"><div data-role="toolbar"><span class="__icon-add" title="Add/Edit" data-role="add"></span><span class="__icon-remove" title="Remove" data-role="remove"></span></div></div>';
+        $html .= '        <div data-role="body">';
+        $html .=            $label->text;
+        $html .= '        </div>';
+        $html .= '    </div>';
+        return $html;
+    }
+    public function editContent()
+    {
+        $html  = '';
+        $html .= '<div class="__wrapper_edit_widget">';
+
+        $html .= '</div>';
+        return $html;
+    }
     /**
      * @return string
      */
@@ -173,7 +292,7 @@ class Item extends AbstractHelper
      */
     public function getLabel()
     {
-        return $this->_item->getDescription();
+        return json_decode($this->_item->getDescription());
     }
     public function getAlt()
     {

@@ -1,7 +1,7 @@
 var config = {
     map: {
         '*': {
-            'swipermin':               'Netwise_Swiper/js/swiper/swiper.min'
+            'swiper':   'NVT_BannerManagement/js/swiper/swiper.min'
         }
     }
 };

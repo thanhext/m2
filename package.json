@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0"
+  },
+  "name": "m2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {},
+  "scripts": {
+    "test": "grunt less:m2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/thanhext/m2.git"
+  },
+  "keywords": [
+    "m2"
+  ],
+  "author": "Thomas",
+  "license": "ISC",
+  "homepage": "https://github.com/thanhext/m2/blob/master/README.md",
+  "description": ""
+}

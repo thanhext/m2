@@ -95,6 +95,12 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             [ 'nullable' => false, ],
             'Image'
         )->addColumn(
+            'design',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            '64k',
+            [ 'nullable' => false, ],
+            'Design'
+        )->addColumn(
             'link',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
@@ -206,7 +212,10 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             ->setComment('Banner Management Item To Banner Linkage Table');
         $installer->getConnection()->createTable($table);
 
-
+        /**
+         * Create table 'bannermanagement_banner_tmp'
+         * change item save banner
+         */
 
         $installer->endSetup();
     }

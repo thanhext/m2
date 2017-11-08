@@ -52,15 +52,13 @@ class Image extends \Magento\Backend\Block\Widget\Form\Generic implements \Magen
             ]
         );
         $fieldset->addField(
-            'image',
-            'image',
+            'short_description',
+            'textarea',
             [
-                'name' => 'image',
-                'label' => __('Image'),
-                'title' => __('Image'),
-                'class' => 'required-entry',
-                'required' => true,
-                'note'      => '(*.jpg, *.png, *.gif)'
+                'name'=>'short_description',
+                'label'=>__('Short Description'),
+                'maxlength' =>'255',
+                'note' => 'Limited characters is 255'
             ]
         );
         $fieldset->addField(

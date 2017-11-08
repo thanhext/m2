@@ -25,16 +25,24 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
                 'active' => true
             ]
         );
+//        $this->addTab(
+//            'item_image',
+//            [
+//                'label' => __('Image Properties'),
+//                'title' => __('Image Properties'),
+//                'content' => $this->getLayout()->createBlock('NVT\BannerManagement\Block\Adminhtml\Item\Edit\Tab\Image')->toHtml(),
+//                'active' => false
+//            ]
+//        );
         $this->addTab(
-            'item_image',
+            'item_design',
             [
-                'label' => __('Image Properties'),
-                'title' => __('Image Properties'),
-                'content' => $this->getLayout()->createBlock('NVT\BannerManagement\Block\Adminhtml\Item\Edit\Tab\Image')->toHtml(),
+                'label' => __('Design Item'),
+                'title' => __('Design Item'),
+                'content' => $this->getLayout()->createBlock('NVT\BannerManagement\Block\Adminhtml\Item\Edit\Tab\Design')->toHtml(),
                 'active' => false
             ]
         );
-
         return parent::_beforeToHtml();
     }
 }

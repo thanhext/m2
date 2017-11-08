@@ -71,16 +71,20 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
               'maxlength' =>'255'
           ]
         );
+
         $fieldset->addField(
-            'short_description',
-            'textarea',
+            'image',
+            'image',
             [
-                'name'=>'short_description',
-                'label'=>__('Short Description'),
-                'maxlength' =>'255',
-                'note' => 'Limited characters is 255'
+                'name' => 'image',
+                'label' => __('Image'),
+                'title' => __('Image'),
+                'class' => 'required-entry',
+                'required' => true,
+                'note'      => '(*.jpg, *.png, *.gif)'
             ]
         );
+        
         $fieldset->addField(
             'banner_id',
             'multiselect',
@@ -92,7 +96,7 @@ class Info extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'value' => [2],
                 'values' => $this->_itemBanner->getAllOptions()
             ]
-        );
+        )->setSize(2);
 //        /**
 //         * Check is single store mode
 //         */

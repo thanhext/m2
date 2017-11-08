@@ -20,17 +20,15 @@ $sliderId = $sliderData->getId();
     <div class="button-next button-white"></div>
     <div class="button-prev button-white"></div>
 </div>
-    <!-- Initialize Swiper -->
+    <!-- Initialize Slider -->
     <script>
-    require(['jquery','swipermin', 'domReady!'], , function($, Swiper){
+    require(['jquery','swiper', 'domReady!'], function($, Swiper){
         var swiper = new Swiper('.slider-<?php echo $sliderId; ?>', {
             nextButton: '.slider-<?php echo $sliderId; ?> .button-next',
             prevButton: '.slider-<?php echo $sliderId; ?> .button-prev',
-            pagination: '.slider-<?php echo $sliderId; ?> pagination',
+            pagination: '.slider-<?php echo $sliderId; ?> .pagination',
             paginationClickable: true,
-            // Disable preloading of all images
             preloadImages: false,
-            // Enable lazy loading
             lazyLoading: true
         });
     });

@@ -30,20 +30,24 @@ class Properties extends \Magento\Backend\Block\Widget\Form\Generic implements \
         $form->setHtmlIdPrefix('banner_');
         $form->setFieldNameSuffix('banner');
 
-        $fieldset=$form->addFieldset(
+        $fieldset = $form->addFieldset(
             'properties_fieldset',
-            ['legend'=>__('Slider')]
+            ['legend'=>__('Initialize Slideshow')]
+        );
+        $fieldset->addType(
+            'mycustomfield',
+            '\NVT\BannerManagement\Block\Adminhtml\Customformfield\CustomRenderer'
         );
         $fieldset->addField(
             'properties',
-            'hidden',
+            'mycustomfield',
             [
                 'name' => 'properties',
                 'label' => __('Properties'),
                 'title' => __('Properties'),
+                'nfield' => 4,
                 'required' => false,
-                'class' => '',
-                'after_element_html' => $this->getPropertiesHtml('properties', $model)
+                'class' => ''
             ]
         );
         $data = $model->getData();
